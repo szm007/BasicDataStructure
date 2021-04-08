@@ -3,8 +3,9 @@
 #include <stack>
 #include <set>
 #include "BST.h"
+
 // init a bst from a list
-BST::BST(std::vector<int> vt) {
+template<typename T> BST<T>::BST (std::vector<T> vt) {
 	if (vt.empty())
 		return;
 	auto it = vt.begin();
@@ -14,7 +15,7 @@ BST::BST(std::vector<int> vt) {
 	}
 }
 // insert a node into bst
-void BST::insert(int target) {
+template<typename T> void BST<T>::insert(T target) {
 	//insert the 1st node
 	if (root == nullptr) {
 		root = new Node(target);
@@ -39,7 +40,7 @@ void BST::insert(int target) {
 	else
 		pre->r = cur;
 }
-void BST::del(int target) {
+template<typename T> void BST<T>::del(T target) {
 	Node* cur = root, * pre = nullptr;
 	while (cur != nullptr && cur->val != target) {
 		pre = cur;
@@ -96,7 +97,7 @@ void BST::del(int target) {
 	}
 	// delete a nodde with two children
 	else {
-		Node* tmp = new Node(mostLeft(cur->r));
+		Node* tmp = new Node(minimum(cur->r));
 		del(tmp->val);
 		tmp->l = cur->l;
 		if(cur->r!=tmp)
@@ -117,21 +118,21 @@ void BST::del(int target) {
 
 }
 // find the most left child of top
-BST::Node* BST::mostLeft(Node* top) {
+template<typename T> typename BST<T>::Node* BST<T>::minimum(Node* top) {
 	Node *cur = top;
 	while (cur->l != nullptr)
 		cur = cur->l;
 	return cur;
 }
 // find the most right child of top
-BST::Node* BST::mostRight(Node* top) {
+template<typename T> typename BST<T>::Node* BST<T>::maximum(Node* top) {
 	Node* cur = top;
 	while (cur->r != nullptr)
 		cur = cur->r;
 	return cur;
 }
 // print  bst order by asc
-void BST::print() {
+template<typename T> void BST<T>::print() {
 	if (root == nullptr)
 		return;
 	std::stack<Node*> st;
@@ -155,7 +156,7 @@ void BST::print() {
 	}
 }
 // find if target in bst or not
-bool BST::search(int target) {
+template<typename T> bool BST<T>::search(T target) {
 	Node *cur = root;
 	while (cur != nullptr && cur->val != target) {
 		if (cur->val > target)

@@ -1,22 +1,22 @@
 #include <vector>
-class BST {
+template<typename T> class BST {
 public:
 	BST() {};
-	BST(std::vector<int>);
-	void insert(int);
-	void del(int);
-	bool search(int);
+	BST(std::vector<T>);
+	void insert(T);
+	void del(T);
+	bool search(T);
 	void print();
 private:
 
 	struct Node {
-		int val;
+		T val;
 		Node* r, * l;
-		Node(int v) :val(v), r(nullptr), l(nullptr) {}
+		Node(T v) :val(v), r(nullptr), l(nullptr) {}
 		Node(Node* tmp) :val(tmp->val), r(tmp->r), l(tmp->l) {}
 	};
 	Node** head = nullptr;
 	Node* root = nullptr;
-	Node* mostLeft(Node*);
-	Node* mostRight(Node*);
+	Node* minimum(Node*);
+	Node* maximum(Node*);
 };
